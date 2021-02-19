@@ -1,0 +1,24 @@
+* {
+    background-color: #fff;
+    color: #063744;
+
+}
+
+body {
+    background-color: #063744;
+    color: #fff;
+
+}
+
+.hide {
+    display: none;
+}
+
+.highscores-hyperlink:hover {
+    color: #fbbdc7;
+    cursor: pointer;
+}
+
+/* .custom_button {
+    background-color: #ff830c;
+} */
