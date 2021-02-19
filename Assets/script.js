@@ -30,7 +30,7 @@ optionButtons.addEventListener("click", checkAnswer);
 var initialsArray = [];
 var scoreArray = [];
 
-
+//start quiz
 function startQuiz () {
     startPage.classList.add("hide");
     quizDiv.classList.remove("hide");
