@@ -152,6 +152,7 @@ function setTime() {
         
         clearInterval(timerInterval);
         }
+        
     
     }, 1000);
 };
