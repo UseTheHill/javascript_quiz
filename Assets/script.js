@@ -11,22 +11,22 @@ var highscoresSection = document.querySelector(".highscores");
 var initialsColumn = document.querySelector(".initials-column");
 var scoreColumn = document.querySelector(".score-column");
 
-
+//button variables
 var optionButtons = document.querySelector(".option-btn");
 var submitButton = document.querySelector(".submit-button");
 var restartBtn = document.querySelector(".restart");
 var clearBtn = document.querySelector(".clear");
 var highscoresHyperlink = document.querySelector(".highscores-hyperlink");
-
+//timer variables
 var currentQuestionIndex = 0;
 var secondsLeft = 20;
 
-
+//addEventListener for start butttons and option buttons
 startBtn.addEventListener("click", startQuiz);
 optionButtons.addEventListener("click", updateQuestion);
 optionButtons.addEventListener("click", checkAnswer);
 
-
+//array variables
 var initialsArray = [];
 var scoreArray = [];
 
@@ -41,26 +41,26 @@ function startQuiz () {
     setTime();
 };
 
-
+//update questions
 function updateQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
 
 };
-
+//navigate to input page
 function navigateToInput() {
     quizDiv.classList.add("hide");
     inputSection.classList.remove("hide");
 };
 
-
+//navigate to high score page
 function navigateToHighScore() {
     inputSection.classList.add("hide");
     highscoresSection.classList.remove("hide");
     displayHighScores();
 };
 
-
+//high score page for loop for initials and score
 function displayHighScores() {
     initialsColumn.innerHTML = "";
     scoreColumn.innerHTML = "";
@@ -73,9 +73,9 @@ function displayHighScores() {
         var scoreP = document.createElement("p");
         scoreP.textContent = scoreArray[i];
         scoreColumn.append(scoreP);
-      };
+    };
 };
-
+//function for what happens when the user answers each question
 function showQuestion(question) {
     if (currentQuestionIndex < questions.length) {
         currentQuestion.textContent = question.question
@@ -96,7 +96,7 @@ function showQuestion(question) {
 
 };
 
-
+//checks if answer is right or wrong and presents with correct or incorrect word and moves onto next question.
 function checkAnswer(event) {
     var element = event.target
     
@@ -112,7 +112,7 @@ function checkAnswer(event) {
     updateQuestion()
 };
 
-
+//shows the correct alert when answer is right
 function displayCorrect() {
     var correctAlert = document.querySelector(".correct-alert");
     setTimeout(function(){ 
@@ -123,7 +123,7 @@ function displayCorrect() {
     }, 1000)
 
 };
-
+//shows incorrect allert when answer is wrong
 function displayIncorrect() {
     var incorrectAlert = document.querySelector(".incorrect-alert");
     setTimeout(function(){ 
@@ -134,7 +134,7 @@ function displayIncorrect() {
     }, 1000)
 };
 
-
+//
 function resetState() {
     while (answerGrid.firstChild) {
         answerGrid.removeChild(answerGrid.firstChild);
@@ -142,7 +142,7 @@ function resetState() {
     currentQuestionIndex++;
 };
 
-
+//timer
 function setTime() {
     var timerInterval = setInterval(function() {
         timeEl.textContent = "Time: " + secondsLeft--;
@@ -150,35 +150,33 @@ function setTime() {
         
         if(secondsLeft === 0 || currentQuestionIndex > (questions.length - 1) || highscoresSection.getAttribute("data-display") === "true") {
         
-          clearInterval(timerInterval);
+        clearInterval(timerInterval);
         }
     
-      }, 1000);
+    }, 1000);
 };
 
-
+//local storage
 function init() {
     
     var storedInitials = JSON.parse(localStorage.getItem("initials"));
     var storedScores = JSON.parse(localStorage.getItem("score"));
-  
     
     if (storedInitials !== null || storedScores !==null) {
-      initialsArray = storedInitials;
-      scoreArray = storedScores;
+    initialsArray = storedInitials;
+    scoreArray = storedScores;
     }
-  
     
     displayHighScores();
 };
 
-
+//local storage 
 function storeScores() {
     localStorage.setItem("initials", JSON.stringify(initialsArray));
     localStorage.setItem("score", JSON.stringify(scoreArray));
 };
 
-
+//submit button
 submitButton.addEventListener("click", function(event) {
     event.preventDefault();
 
@@ -192,10 +190,10 @@ submitButton.addEventListener("click", function(event) {
 
     storeScores();
     navigateToHighScore();
-     
+    
 });
 
-
+//restart button
 restartBtn.addEventListener("click", function(event) {
     event.preventDefault();
     startPage.classList.remove("hide");
@@ -204,7 +202,7 @@ restartBtn.addEventListener("click", function(event) {
     highscoresSection.setAttribute("data-display", "false");
 });
 
-
+//clearing results button
 clearBtn.addEventListener("click", function(event) {
     event.preventDefault();
     inputSection.classList.add("hide");
@@ -214,7 +212,7 @@ clearBtn.addEventListener("click", function(event) {
     scoreArray = [];
 });
 
-
+//link to the high score page
 highscoresHyperlink.addEventListener("click", function(event) {
     quizDiv.classList.add("hide");
     startPage.classList.add("hide");
@@ -223,10 +221,10 @@ highscoresHyperlink.addEventListener("click", function(event) {
     highscoresSection.setAttribute("data-display", "true");
     var timerInterval = setInterval(function() {
         
-          clearInterval(timerInterval);
+        clearInterval(timerInterval);
 
     
-      }, 1000);
+    }, 1000);
 });
 
 init();
@@ -234,42 +232,42 @@ init();
 
 var questions = [
     {
-        question: "Commonly used data types DO NOT include:",
+        question: "Which of the following statements will show a message as well as ask for user input in a popup?",
         answers: [
-        {text: "1. strings", response: 0},
-        {text: "2. booleans", response: 0},
-        {text: "3. alerts", response: 1},
-        {text: "4. numbers", response: 0}
+        {text: "1. alert()", response: 0},
+        {text: "2. prompt()", response: 0},
+        {text: "3. confirm()", response: 1},
+        {text: "4. message()", response: 0}
         ]
 
     },
     {
-        question: "Which of the following string methods will remove extra white space?",
+        question: "what is the property to change a Background color in Css?",
         answers: [
-        {text: "1. .concat()", response: 0},
-        {text: "2. .trim()", response: 1},
-        {text: "3. .splice()", response: 0},
-        {text: "4. .split()", response: 0}
+        {text: "1. color-background", response: 0},
+        {text: "2. Background-color", response: 1},
+        {text: "3. (Color-background)", response: 0},
+        {text: "4. <background-color>", response: 0}
         ]
 
     },
     {
-        question: "Which of the following is NOT way to define a variable in JavaScript?",
+        question: "How many <H> tags are there?",
         answers: [
-        {text: "1. assign", response: 1},
-        {text: "2. var", response: 0},
-        {text: "3. const", response: 0},
-        {text: "4. let", response: 0}
+        {text: "1. 6", response: 1},
+        {text: "2. 4", response: 0},
+        {text: "3. 5", response: 0},
+        {text: "4. 3", response: 0}
         ]
 
     },
     {
-        question: "What is the HTML tag under which one can write the JavaScript code?",
+        question: "What is Bootstrap Used for?",
         answers: [
-        {text: "1. <javascript>", response: 0},
-        {text: "2. <scripted>", response: 0},
-        {text: "3. <script>", response: 1},
-        {text: "4. <js>", response: 0}
+        {text: "1. CSS library", response: 0},
+        {text: "2. HTML library", response: 0},
+        {text: "3. CSS & JavaScript", response: 1},
+        {text: "4. To hold up your shoes", response: 0}
         ]
 
     }
