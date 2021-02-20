@@ -10,6 +10,7 @@ var userInput = document.querySelector("#user-input");
 var highscoresSection = document.querySelector(".highscores");
 var initialsColumn = document.querySelector(".initials-column");
 var scoreColumn = document.querySelector(".score-column");
+var userScore = 0;
 
 //button variables
 var optionButtons = document.querySelector(".option-btn");
@@ -101,6 +102,7 @@ function checkAnswer(event) {
     var element = event.target
     
     if (element.matches("button") === true && Number(element.value) === 1) {
+        userScore+=1;
         displayCorrect()
         
     }
@@ -149,8 +151,9 @@ function setTime() {
         
         
         if(secondsLeft === 0 || currentQuestionIndex > (questions.length - 1) || highscoresSection.getAttribute("data-display") === "true") {
-        
+        timeEl.textContent = "Game Over: 0";
         clearInterval(timerInterval);
+        navigateToInput();
         }
         
     
@@ -182,7 +185,7 @@ submitButton.addEventListener("click", function(event) {
     event.preventDefault();
 
     var userInitials = userInput.value.trim();
-    var userScore = secondsLeft
+    
 
     initialsArray.push(userInitials);
     scoreArray.push(userScore);
@@ -201,6 +204,7 @@ restartBtn.addEventListener("click", function(event) {
     highscoresSection.classList.add("hide");
     inputSection.classList.add("hide");
     highscoresSection.setAttribute("data-display", "false");
+    userScore = 0;
 });
 
 //clearing results button
@@ -211,6 +215,8 @@ clearBtn.addEventListener("click", function(event) {
     scoreColumn.innerHTML = "";
     initialsArray = [];
     scoreArray = [];
+    localStorage.setItem("scoreArray", []);
+    localStorage.setItem("initialsArray", []);
 });
 
 //link to the high score page
